@@ -1,0 +1,25 @@
+# Dueños por módulo: GitHub pide su revisión automáticamente en cada PR.
+# Reemplazar los usuarios de ejemplo por los usuarios REALES de GitHub y quitar el "#" de cada línea.
+# Ver PLAN.md, sección 3.
+
+# Equipo A · Kiara + Marlo
+# /docker-compose.yml          @usuario-kiara @usuario-marlo
+# /docker/                     @usuario-kiara @usuario-marlo
+# /.github/                    @usuario-kiara @usuario-marlo
+# /n8n/                        @usuario-kiara @usuario-marlo
+# /src/**/maquina/             @usuario-kiara @usuario-marlo
+# /src/**/cambio/              @usuario-kiara @usuario-marlo
+# /src/**/notificaciones/      @usuario-kiara @usuario-marlo
+
+# Equipo B · Gabriela + Roberto
+# /src/**/cliente/             @usuario-gabriela @usuario-roberto
+# /src/**/contrato/            @usuario-gabriela @usuario-roberto
+# /src/**/area/                @usuario-gabriela @usuario-roberto
+
+# Equipo C · Samuel + Christian
+# /db/                         @usuario-samuel @usuario-christian
+# /src/**/usuario/             @usuario-samuel @usuario-christian
+# /src/**/instalacion/         @usuario-samuel @usuario-christian
+# /src/**/ingesta/             @usuario-samuel @usuario-christian
+# /src/**/lotes_carga/         @usuario-samuel @usuario-christian
+# /src/**/reportemes*/         @usuario-samuel @usuario-christian

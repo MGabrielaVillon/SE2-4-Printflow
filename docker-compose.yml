@@ -1,0 +1,82 @@
+# PrintFlow · entorno completo en local con un solo comando:
+#   docker compose up --build
+#
+# Requisitos:
+#   - Este repo (SE2-4-Printflow) y el frontend (SE2-4-Printflow-Frontend) clonados lado a lado
+#     en la misma carpeta. Si el frontend está en otro lugar, definir FRONTEND_PATH en el .env.
+#   - Un .env en la raíz de este repo (copiar de .env.example y completar).
+#
+# Servicios:
+#   web   -> http://localhost:8080   proxy inverso (nginx) + SPA; reenvía /api y /socket.io a la API
+#   api   -> solo dentro de la red de Docker (puerto 9000)
+#   db    -> PostgreSQL 17; expuesto solo en 127.0.0.1:5432 para psql/pgAdmin
+#   n8n   -> http://localhost:5678   (solo local); llama a la API en http://api:9000/api/ingesta/cargar
+
+name: printflow
+
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Falta DB_PASSWORD en el .env}
+      POSTGRES_DB: ${DB_NAME:-printflow}
+      TZ: America/Guayaquil
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      # Migraciones y seeds del Equipo C. Se aplican SOLO la primera vez que se crea el volumen.
+      - ./db:/printflow-db:ro
+      - ./docker/postgres/init.sh:/docker-entrypoint-initdb.d/10-printflow.sh:ro
+    ports:
+      - "127.0.0.1:5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_SSL: "false"
+      PORT: 9000
+      CORS_ORIGINS: http://localhost:8080,http://localhost:5173
+    depends_on:
+      db:
+        condition: service_healthy
+    expose:
+      - "9000"
+
+  web:
+    build:
+      context: ${FRONTEND_PATH:-../SE2-4-Printflow-Frontend}
+      args:
+        # Vacío = misma URL que la página; nginx reenvía /api a la API.
+        VITE_API_BASE_URL: ""
+    restart: unless-stopped
+    depends_on:
+      - api
+    ports:
+      - "8080:80"
+
+  n8n:
+    # Actualizar la versión a la que use DOX en producción.
+    image: n8nio/n8n:${N8N_VERSION:-1.64.0}
+    restart: unless-stopped
+    environment:
+      GENERIC_TIMEZONE: America/Guayaquil
+      TZ: America/Guayaquil
+      N8N_SECURE_COOKIE: "false"
+    volumes:
+      - n8n_data:/home/node/.n8n
+    ports:
+      - "127.0.0.1:5678:5678"
+
+volumes:
+  db_data:
+  n8n_data:

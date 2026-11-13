@@ -1,0 +1,35 @@
+{
+  "name": "printflow-backend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "module-alias": "^2.2.3",
+    "morgan": "^1.10.1",
+    "pg": "^8.18.0",
+    "socket.io": "^4.8.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "xlsx-js-style": "^1.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.10"
+  },
+  "_moduleAliases": {
+    "@controllers": "src/controllers",
+    "@models": "src/models",
+    "@routes": "src/routes",
+    "@services": "src/services",
+    "@config": "src/config",
+    "@middlewares": "src/middlewares",
+    "@utils": "src/utils"
+  }
+}

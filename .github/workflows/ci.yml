@@ -1,0 +1,39 @@
+name: CI backend
+
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [main, develop]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: No hay secretos en el repo
+        run: |
+          if git ls-files | grep -E '(^|/)\.env$|(^|/)\.env\.(local|production)$'; then
+            echo "Hay un archivo .env versionado. Quitarlo y rotar sus claves."; exit 1
+          fi
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: La app carga sin errores
+        run: node -e "require('module-alias/register'); require('./src/app'); console.log('app OK'); process.exit(0)"
+
+      - name: Tests
+        run: npm test
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Construye la imagen de la API
+        run: docker build -t printflow-api .
