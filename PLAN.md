@@ -12,6 +12,13 @@ Al cierre del Sprint 2 este repo estaba vacío. El plan es:
 1. **Fases 0, 1 y 2 (14 al 22 de noviembre):** migrar el código existente a los repos oficiales en **cajas** por equipo, corrigiendo lo que no cumple el plan original. Así nos ponemos al día con los Sprints 1 y 2.
 2. **Fases 3 y 4 (Sprints 3 y 4):** construir lo que falta.
 
+### 1.1 Alcance: de dónde vienen los reportes y por qué usamos datos simulados
+
+- **Fuera de PrintFlow:** en DOX, las impresoras envían sus reportes de contadores por correo a un buzón. La configuración de las máquinas y el script que genera y envía esos correos los hizo y los mantiene el **técnico de DOX, nuestro Product Owner y entrenador técnico**. No es trabajo de este equipo.
+- **Requisito del PO:** «Ustedes van a recibir estos reportes por montones y el sistema los debe registrar».
+- **Nuestro alcance empieza en el buzón:** n8n lee los correos → extrae los contadores → API de ingesta → staging y lotes → aprobación → informe.
+- **Datos simulados:** el buzón y el flujo reales ya están en **producción en el servidor de DOX**, y el PO no autoriza usarlos para el desarrollo. Por eso trabajamos con la **información de prueba que nos entregó el PO**: un buzón de prueba propio, correos de prueba con el mismo formato y máquinas, series e IP ficticias. **Nunca** se usan el buzón, el n8n ni los datos reales de clientes de DOX.
+
 Cada caja está en la carpeta `CAJAS/` (fuera de los repos) y trae el código, su `TAREA.md` con los pasos exactos y las mejoras obligatorias. Cada equipo sube **su** caja con **sus** commits.
 
 ## 2. Repos y reglas
