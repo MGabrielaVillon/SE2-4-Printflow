@@ -90,23 +90,23 @@ flowchart LR
   C2 --> C3[F3 · C informe backend]
 ```
 
-Regla práctica: **dentro de una fase, primero A, luego B, luego C**, salvo en la Fase 2, donde el backend de C va antes que el de A.
+Regla: **en cada fase va primero A, luego B y al final C** (C cierra cada fase y el proyecto). Son 15 cajas en total; el orden numerado está en `CAJAS/README.md`. Se comprobó compilando y arrancando cada caja en ese orden.
 
 ## 5. Las cajas (Fases 0 a 3)
 
 | Caja | Equipo | Historias | Contenido principal | Fecha |
 |---|---|---|---|---|
 | `EQUIPO-A_Kiara-Marlo/fase-0_base-repos` | A | S1-01 | Esqueleto de los dos repos, Docker Compose, CI, plantillas | 15 nov |
-| `EQUIPO-C_Samuel-Christian/fase-0_bd-y-auth` | C | S1-02, S1-03 | Esquema `public` limpio, catálogos, login, `protect` | 17 nov |
 | `EQUIPO-B_Gabriela-Roberto/fase-0_estructura-web` | B | S1-06 | Layout, login, rutas protegidas, componentes compartidos | 17 nov |
+| `EQUIPO-C_Samuel-Christian/fase-0_bd-y-auth` | C | S1-02, S1-03 | Esquema `public` limpio, catálogos, login, `protect` | 17 nov |
 | `EQUIPO-A_Kiara-Marlo/fase-1_maquinas-y-cambios` | A | S1-05 + cambio de máquinas | CRUD de máquinas, modelos y reemplazos | 19 nov |
 | `EQUIPO-B_Gabriela-Roberto/fase-1_clientes-contratos-areas` | B | S1-04, S2-01, (áreas de S2-02) | CRUD de clientes, contratos y áreas | 19 nov |
 | `EQUIPO-C_Samuel-Christian/fase-1_asignaciones` | C | S2-02 | Asignar una máquina a un área bajo un contrato | 20 nov |
-| `EQUIPO-C_Samuel-Christian/fase-2_ingesta-y-seguridad` | C | S2-03 + cierre de la API | Ingesta, lotes, staging, `protect` en todo `/api` | 22 nov |
 | `EQUIPO-A_Kiara-Marlo/fase-2_notificaciones-y-n8n` | A | S2-04, S2-06 | Notificaciones en tiempo real, detalle de lote, flujo n8n | 22 nov |
 | `EQUIPO-B_Gabriela-Roberto/fase-2_listado-de-lotes` | B | S2-05 | Listado de lotes con estado y filtros | 22 nov |
-| `EQUIPO-C_Samuel-Christian/fase-3_informe-backend` | C | S3-06, S3-01, S3-02 | Consolidado + validaciones + auditoría | 13 dic |
+| `EQUIPO-C_Samuel-Christian/fase-2_ingesta-y-seguridad` | C | S2-03 + cierre de la API | Ingesta, lotes, staging, `protect` en todo `/api` | 22 nov |
 | `EQUIPO-B_Gabriela-Roberto/fase-3_informe-frontend` | B | S3-07, S3-04, S3-05 | Pantalla de informes + lectura manual + reprocesar | 13 dic |
+| `EQUIPO-C_Samuel-Christian/fase-3_informe-backend` | C | S3-06, S3-01, S3-02 | Consolidado + validaciones + auditoría | 13 dic |
 
 ## 6. Trabajo nuevo de las Fases 3 y 4 (sin código previo)
 
