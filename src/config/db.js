@@ -3,7 +3,7 @@ const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 
 // DB_SSL=true solo cuando la base esta fuera del servidor (p. ej. Supabase).
-// En Docker local o en el servidor de DOX va en false.
+// En Docker local o en una VM con Docker (demo, opción 1 de la caja 13) va en false.
 const useSsl = String(process.env.DB_SSL || 'false').toLowerCase() === 'true';
 
 const pool = new Pool({

@@ -38,7 +38,7 @@ Cada caja está en la carpeta `CAJAS/` (fuera de los repos) y trae el código, s
 
 | Equipo | Integrantes | Dueño de |
 |---|---|---|
-| **A** | Kiara Morán (QA) · Marlo Valle (Scrum Master, DevOps) | **Las bases:** repos, Docker, CI. Además, máquinas y cambios, notificaciones y detalle, n8n, SMTP, Excel y despliegue en DOX |
+| **A** | Kiara Morán (QA) · Marlo Valle (Scrum Master, DevOps) | **Las bases:** repos, Docker, CI. Además, máquinas y cambios, notificaciones y detalle, n8n, SMTP, Excel y despliegue de demostración |
 | **B** | María Gabriela Villón (documentación) · Roberto Barrios | Estructura de la web, clientes, contratos, áreas, listado de lotes, pantalla de informes, lectura manual, reprocesamiento, PDF, usuarios y roles |
 | **C** | Samuel Chichande (líder técnico backend) · Christian Villacrés | Base de datos, autenticación y seguridad de la API, asignaciones, ingesta, validaciones, auditoría, cálculo del informe, rendimiento, prueba E2E |
 
@@ -130,7 +130,7 @@ Regla: **en cada fase va primero A, luego B y al final C** (C cierra cada fase y
 | 4 | B | S4-01 PDF del consolidado: verificar contra los criterios (ya existe) | Gabriela | 3 |
 | 4 | A | S4-02 Excel con columnas numéricas: verificar (ya existe) | Kiara | 2 |
 | 4 | B | S4-03 Gestión de usuarios y roles + menú filtrado por rol | Roberto | 3 |
-| 4 | A | S4-04 Despliegue en DOX: HTTPS, redirección HTTP, respaldo diario de 30 días | Marlo | 5 |
+| 4 | A | S4-04 Despliegue de demostración (Azure for Students o servicios gratuitos; no en el servidor de DOX): HTTPS, redirección HTTP, respaldo diario de 30 días | Marlo | 5 |
 | 4 | C | S4-05 Índices y medición < 5 s con 500 máquinas | Christian | 2 |
 | 4 | C | S4-06 Prueba E2E correo → lectura → informe, y defectos de UAT | Samuel | 3 |
 
