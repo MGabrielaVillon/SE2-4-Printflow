@@ -26,7 +26,7 @@ jobs:
       - run: npm ci
 
       - name: La app carga sin errores
-        run: node -e "require('module-alias/register'); require('./src/app'); console.log('app OK'); process.exit(0)"
+        run: npm run verificar
 
       - name: Tests
         run: npm test

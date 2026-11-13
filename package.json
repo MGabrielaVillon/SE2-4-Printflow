@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node src/server.js",
+    "verificar": "node -e \"require('module-alias/register'); require('./src/app'); console.log('OK: la app carga sin errores'); process.exit(0)\"",
     "test": "node --test"
   },
   "dependencies": {
