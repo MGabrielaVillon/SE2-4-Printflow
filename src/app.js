@@ -6,19 +6,6 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocs = require('./config/swagger');
 const app = express();
 
-// ---------------------------------------------------------------------------
-// RUTAS POR MODULO
-// Cada equipo agrega aqui el require y el app.use de su modulo en su PR.
-// No borrar las lineas de otro equipo.
-// ---------------------------------------------------------------------------
-// [Fase 0 · Equipo C] auth
-// [Fase 1 · Equipo B] clientes, contratos, areas
-// [Fase 1 · Equipo A] maquinas, maquinas-cambio
-// [Fase 1 · Equipo C] instalacion (asignaciones)
-// [Fase 2 · Equipo C] ingesta, lotes, staging
-// [Fase 2 · Equipo A] notificaciones
-// [Fase 3 · Equipo C] reportes
-
 const allowedOrigins = (process.env.CORS_ORIGINS || 'http://localhost:5173')
   .split(',')
   .map((o) => o.trim());
@@ -51,17 +38,49 @@ app.get('/health', async (_req, res) => {
   }
 });
 
-// app.use('/api/auth', authRoutes);              // Fase 0 · C
-// app.use('/api/clientes', clienteRoutes);       // Fase 1 · B
-// app.use('/api/contratos', contratoRoutes);     // Fase 1 · B
-// app.use('/api/areas', areaRoutes);             // Fase 1 · B
-// app.use('/api/maquinas', maquinaRoutes);       // Fase 1 · A
-// app.use('/api/maquinas-cambio', maquinasCambioRoutes); // Fase 1 · A
-// app.use('/api/instalacion', instalacionRoutes);        // Fase 1 · C
-// app.use('/api/ingesta', ingestaRoutes);        // Fase 2 · C
-// app.use('/api/lotes', lotesRoutes);            // Fase 2 · C
-// app.use('/api/staging', stagingRoutes);        // Fase 2 · C
-// app.use('/api/notificaciones', notificacionesRoutes);  // Fase 2 · A
-// app.use('/api/reportes', reportemesRoutes);    // Fase 3 · C
+// ===========================================================================
+// LINEAS DE CADA EQUIPO
+// Cada equipo SOLO quita el "// " del inicio de las lineas que terminan con
+// su etiqueta (por ejemplo "// [B-F1]"). No se escriben lineas nuevas aqui ni se
+// tocan las de otro equipo. La etiqueta del final de la linea se queda.
+// ===========================================================================
+
+// --- Seguridad de la API (Equipo C, Fase 2): todo /api exige token, salvo login y la ingesta,
+//     que usa su propio token. Va ANTES de las rutas.
+// const { protect } = require('@middlewares/auth.middleware'); // [C-F2]
+// const RUTAS_PUBLICAS = ['/auth/login', '/auth/validate-token']; // [C-F2]
+// app.use('/api', (req, res, next) => (RUTAS_PUBLICAS.includes(req.path) || req.path.startsWith('/ingesta') ? next() : protect(req, res, next))); // [C-F2]
+
+// --- Fase 0
+// const authRoutes = require('@routes/usuario/usuario.routes'); // [C-F0]
+// app.use('/api/auth', authRoutes); // [C-F0]
+
+// --- Fase 1
+// const maquinaRoutes = require('@routes/maquina/maquina.routes'); // [A-F1]
+// const maquinasCambioRoutes = require('@routes/cambio/maquinasCambio.routes'); // [A-F1]
+// app.use('/api/maquinas', maquinaRoutes); // [A-F1]
+// app.use('/api/maquinas-cambio', maquinasCambioRoutes); // [A-F1]
+// const clienteRoutes = require('@routes/cliente/cliente.routes'); // [B-F1]
+// const contratoRoutes = require('@routes/contrato/contrato.routes'); // [B-F1]
+// const areaRoutes = require('@routes/area/area.routes'); // [B-F1]
+// app.use('/api/clientes', clienteRoutes); // [B-F1]
+// app.use('/api/contratos', contratoRoutes); // [B-F1]
+// app.use('/api/areas', areaRoutes); // [B-F1]
+// const instalacionRoutes = require('@routes/instalacion/instalacion.routes'); // [C-F1]
+// app.use('/api/instalacion', instalacionRoutes); // [C-F1]
+
+// --- Fase 2
+// const notificacionesRoutes = require('@routes/notificaciones/notificaciones.routes'); // [A-F2]
+// app.use('/api/notificaciones', notificacionesRoutes); // [A-F2]
+// const ingestaRoutes = require('@routes/ingesta/ingesta.routes'); // [C-F2]
+// const lotesRoutes = require('@routes/lotes_carga/lotes_carga.routes'); // [C-F2]
+// const stagingRoutes = require('@routes/reportemes_staging/reportemes_staging.routes'); // [C-F2]
+// app.use('/api/ingesta', ingestaRoutes); // [C-F2]
+// app.use('/api/lotes', lotesRoutes); // [C-F2]
+// app.use('/api/staging', stagingRoutes); // [C-F2]
+
+// --- Fase 3
+// const reportemesRoutes = require('@routes/reportemes/reportemes.routes'); // [C-F3]
+// app.use('/api/reportes', reportemesRoutes); // [C-F3]
 
 module.exports = app;
