@@ -6,11 +6,17 @@ require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 let io;
 let pgClient;
 
+// Mismas reglas que src/config/db.js y src/app.js
+const useSsl = String(process.env.DB_SSL || 'false').toLowerCase() === 'true';
+const allowedOrigins = (process.env.CORS_ORIGINS || 'http://localhost:5173')
+    .split(',')
+    .map((o) => o.trim());
+
 module.exports = {
     init: (httpServer) => {
         io = new Server(httpServer, {
             cors: {
-                origin: ['http://localhost:5173'],
+                origin: allowedOrigins,
                 methods: ['GET', 'POST'],
                 credentials: true
             }
@@ -22,7 +28,7 @@ module.exports = {
             password: process.env.DB_PASSWORD,
             database: process.env.DB_NAME,
             port: process.env.DB_PORT,
-            ssl: { rejectUnauthorized: false }
+            ssl: useSsl ? { rejectUnauthorized: false } : false
         });
 
         pgClient.connect(err => {

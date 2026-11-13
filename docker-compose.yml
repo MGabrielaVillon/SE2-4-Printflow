@@ -7,9 +7,9 @@
 #   - Un .env en la raíz de este repo (copiar de .env.example y completar).
 #
 # Servicios:
-#   web   -> http://localhost:8080   proxy inverso (nginx) + SPA; reenvía /api y /socket.io a la API
+#   web   -> http://localhost:8080   (WEB_PORT) proxy inverso (nginx) + SPA; reenvía /api y /socket.io a la API
 #   api   -> solo dentro de la red de Docker (puerto 9000)
-#   db    -> PostgreSQL 17; expuesto solo en 127.0.0.1:5432 para psql/pgAdmin
+#   db    -> PostgreSQL 17; expuesto solo en 127.0.0.1:5433 (DB_HOST_PORT) para psql/pgAdmin
 #   n8n   -> http://localhost:5678   (solo local); llama a la API en http://api:9000/api/ingesta/cargar
 
 name: printflow
@@ -29,7 +29,8 @@ services:
       - ./db:/printflow-db:ro
       - ./docker/postgres/init.sh:/docker-entrypoint-initdb.d/10-printflow.sh:ro
     ports:
-      - "127.0.0.1:5432:5432"
+      # 5433 en tu PC para no chocar con un PostgreSQL instalado en Windows (cambiar con DB_HOST_PORT)
+      - "127.0.0.1:${DB_HOST_PORT:-5433}:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
       interval: 5s
@@ -62,7 +63,7 @@ services:
     depends_on:
       - api
     ports:
-      - "8080:80"
+      - "${WEB_PORT:-8080}:80"
 
   n8n:
     # Actualizar la versión a la que use DOX en producción.
